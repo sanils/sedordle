@@ -9,6 +9,6 @@ RUN yarn build
 FROM httpd:2.4
 COPY --from=frontend-builder /app/build /usr/local/apache2/htdocs/
 
-# docker run -d --name sedurdle \
+# docker run -d --name sedordle \
 #     --network proxynet \
-#     psidex/sedurdle
+#     psidex/sedordle

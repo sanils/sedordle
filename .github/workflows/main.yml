@@ -41,4 +41,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: psidex/sedurdle:latest
+          tags: psidex/sedordle:latest

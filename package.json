@@ -1,5 +1,5 @@
 {
-  "name": "sedurdle",
+  "name": "sedordle",
   "version": "0.1.0",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "watch": "node ./esbuild.config.js watch",
     "serve": "cd build && python -m http.server"
   },
-  "repository": "https://github.com/psidex/sedurdle.git",
+  "repository": "https://github.com/psidex/sedordle.git",
   "author": "Simon Jenner <simjenner3@gmail.com>",
   "license": "GPL3",
   "private": false,
