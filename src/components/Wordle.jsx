@@ -20,6 +20,8 @@ function getColoursFromGuess(guess, target) {
   return colours;
 }
 
+// TODO: Always render all unguessed rows, make scrollable and have max height
+
 // eslint-disable-next-line no-unused-vars
 export default function Wordle({ currentGuessWord, guessedWords, targetWord }) {
   return (
