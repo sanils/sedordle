@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { HStack } from '@chakra-ui/react';
+import Letter from './Letter';
 
-export default function Guess() {
-  // eslint-disable-next-line no-unused-vars
-  const [letters, setLetters] = useState([]);
-
+export default function Guess({ letters, colours }) {
   return (
-    <div>
-      {letters}
-    </div>
+    <HStack>
+      {letters.map((l, i) => (
+        <Letter
+        // eslint-disable-next-line react/no-array-index-key
+          key={i}
+          char={l}
+          colour={colours[i]}
+        />
+      ))}
+    </HStack>
   );
 }

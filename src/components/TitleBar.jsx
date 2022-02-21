@@ -1,9 +1,10 @@
 import React from 'react';
+import { HStack } from '@chakra-ui/react';
 
 export default function TitleBar() {
   return (
-    <div>
+    <HStack>
       <h1>Sedordle</h1>
-    </div>
+    </HStack>
   );
 }

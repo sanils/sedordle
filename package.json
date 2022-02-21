@@ -13,8 +13,12 @@
   "license": "GPL3",
   "private": false,
   "dependencies": {
+    "@chakra-ui/react": "^1.8.5",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
     "esbuild": "^0.14.23",
     "esbuild-sass-plugin": "^2.2.3",
+    "framer-motion": "^6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
