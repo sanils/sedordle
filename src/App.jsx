@@ -1,5 +1,12 @@
 import React from 'react';
+import TitleBar from './components/TitleBar';
+import GameBoard from './components/GameBoard';
 
 export default function App() {
-  return <h1>Game!</h1>;
+  return (
+    <div>
+      <TitleBar />
+      <GameBoard />
+    </div>
+  );
 }

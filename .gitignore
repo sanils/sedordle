@@ -1,6 +1,11 @@
 build/*
 !build/index.html
-!build/favicon.ico
+!build/favicon*.*
+!build/manifest.json
+!build/*.png
+!build/*.jpg
+!build/*.svg
+!build/*.ico
 
 # Created by https://www.toptal.com/developers/gitignore/api/git,node,yarn,react,python,visualstudiocode,go
 # Edit at https://www.toptal.com/developers/gitignore?templates=git,node,yarn,react,python,visualstudiocode,go

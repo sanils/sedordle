@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const esbuild = require('esbuild');
+const { sassPlugin } = require('esbuild-sass-plugin');
 
 const buildDir = './build';
 
@@ -13,6 +14,7 @@ const esBuildOpts = {
     '.jpg': 'file',
     '.png': 'file',
   },
+  plugins: [sassPlugin()],
 };
 
 console.log('esbuild running...');
@@ -32,7 +34,7 @@ if (process.argv.includes('watch')) {
     },
   });
 } else {
-  esbuild.buildSync({
+  esbuild.build({
     ...esBuildOpts,
     minify: true,
   });

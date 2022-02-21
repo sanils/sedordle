@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function KeyBoard() {
+export default function Keyboard() {
   return <div />;
 }

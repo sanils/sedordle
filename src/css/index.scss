@@ -1,0 +1,23 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.wordle {
+  width: 15em;
+  height: 15em;
+  position: relative;
+  overflow: hidden;
+}
+
+.letter {
+  width: 20%;
+  height: 4.7%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-color: #D3D6DA;
+  border-style: solid;
+  border-width: 1px;
+}
