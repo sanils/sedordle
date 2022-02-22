@@ -3,12 +3,12 @@ import { HStack, VStack } from '@chakra-ui/react';
 import Key from './Key';
 
 const keyboardRows = [
-  ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-  ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-  ['👈', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '👉'],
+  ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+  ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+  ['🔙', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '▶'],
 ];
 
-export default function Keyboard() {
+export default function Keyboard({ tryAddLetterToCurrentGuessWord }) {
   return (
     <VStack>
       {
@@ -17,7 +17,15 @@ export default function Keyboard() {
         <HStack key={i}>
           {
             row.map((letter) => (
-              <Key key={letter} char={letter} />
+              <Key
+                key={letter}
+                clicked={
+                  ['🔙', '▶'].includes(letter)
+                    ? () => {}
+                    : () => tryAddLetterToCurrentGuessWord(letter)
+                }
+                char={letter}
+              />
             ))
           }
         </HStack>

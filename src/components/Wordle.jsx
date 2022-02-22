@@ -9,25 +9,37 @@ function getColoursFromGuess(guess, target) {
 
   guessLetters.forEach((guessLetter, i) => {
     if (guessLetter === targetLetters[i]) {
-      colours[i] = 'green';
+      colours[i] = '#538D4E';
     } else if (targetLetters.includes(guessLetter)) {
-      colours[i] = 'yellow';
+      colours[i] = '#C9B458';
     } else if (guessLetter.trim() !== '') {
-      colours[i] = 'grey';
+      colours[i] = '#787C7E';
     }
   });
 
   return colours;
 }
 
-// TODO: Always render all unguessed rows, make scrollable and have max height
+// TODO: Clean this spaghetti up
 
 // eslint-disable-next-line no-unused-vars
 export default function Wordle({ currentGuessWord, guessedWords, targetWord }) {
+  const renderCurrentGuess = !guessedWords.includes(targetWord);
+  const correctGuessIndex = guessedWords.indexOf(targetWord);
+
   return (
-    <VStack className="wordle">
+    <VStack className="wordle" height="15em" overflow="scroll">
       {guessedWords.map((g, i) => {
-        // TODO: Display up to and including correct guess, then no more
+        if (correctGuessIndex !== -1 && i > correctGuessIndex) {
+          return (
+            <Guess
+              // eslint-disable-next-line react/no-array-index-key
+              key={i}
+              letters={[]}
+              colours={[]}
+            />
+          );
+        }
         const colours = getColoursFromGuess(g, targetWord);
         return (
           <Guess
@@ -39,12 +51,20 @@ export default function Wordle({ currentGuessWord, guessedWords, targetWord }) {
         );
       })}
       {/* Only display current guess if we haven't guessed correctly */}
-      {!guessedWords.includes(targetWord) && (
+      {renderCurrentGuess && (
       <Guess
         letters={currentGuessWord.split('')}
         colours={[]}
       />
       )}
+      {[...Array((21 - guessedWords.length) - (renderCurrentGuess ? 1 : 0)).keys()].map((_, i) => (
+        <Guess
+          // eslint-disable-next-line react/no-array-index-key
+          key={i}
+          letters={[]}
+          colours={[]}
+        />
+      ))}
     </VStack>
   );
 }

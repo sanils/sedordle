@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react';
 
-export default function Key({ char }) {
+export default function Key({ clicked, char }) {
   return (
-    <Box>
+    <Box onClick={clicked}>
       <p>{char}</p>
     </Box>
   );
