@@ -82,7 +82,6 @@ export default function GameBoard() {
 
   return (
     <Flex height="90vh" maxHeight="90vh" flexDirection="column" alignItems="center">
-      {/* TODO: Get each wordle / hstack to be half of the alloted height */}
       <VStack spacing={4} flexGrow={1} flexDirection="column">
         {hStacks}
       </VStack>

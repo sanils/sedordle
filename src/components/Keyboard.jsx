@@ -17,33 +17,32 @@ const keyboardRows = [
   [enterIcon, 'Z', 'X', 'C', 'V', 'B', 'N', 'M', backSpaceIcon],
 ];
 
-export default function Keyboard({ tryAddLetterToCurrentGuessWord }) {
-  const enterClicked = () => {};
-  const backSpaceClicked = () => {};
+export default function Keyboard(props) {
+  const {
+    tryAddLetterToCurrentGuessWord,
+    trySubmitCurrentGuessWord,
+    tryBackspaceCurrentGuessWord,
+  } = props;
 
   return (
     <VStack margin="1em 0">
-      {
-      keyboardRows.map((row, i) => (
+      { keyboardRows.map((row, i) => (
         // eslint-disable-next-line react/no-array-index-key
         <HStack key={i}>
-          {
-            row.map((letter, j) => (
-              <Key
-                // eslint-disable-next-line react/no-array-index-key
-                key={`${i}-${j}`}
-                clicked={
+          { row.map((letter, j) => (
+            <Key
+              // eslint-disable-next-line react/no-array-index-key
+              key={`${i}-${j}`}
+              clicked={
                   letter === enterIcon
-                    ? enterClicked : letter === backSpaceIcon
-                      ? backSpaceClicked : () => tryAddLetterToCurrentGuessWord(letter)
+                    ? trySubmitCurrentGuessWord : letter === backSpaceIcon
+                      ? tryBackspaceCurrentGuessWord : () => tryAddLetterToCurrentGuessWord(letter)
                 }
-                char={letter}
-              />
-            ))
-          }
+              char={letter}
+            />
+          )) }
         </HStack>
-      ))
-    }
+      )) }
     </VStack>
   );
 }

@@ -34,28 +34,28 @@ export default function TitleBar() {
             <Text>Check out these other great games:</Text>
             <UnorderedList>
               <ListItem>
-                <Link href="https://www.nytimes.com/games/wordle/index.html" isExternal>
+                <Link display="inline-flex" alignItems="center" href="https://www.nytimes.com/games/wordle/index.html" isExternal>
                   Wordle
                   {' '}
                   <FaExternalLinkAlt mx="2px" />
                 </Link>
               </ListItem>
               <ListItem>
-                <Link href="https://zaratustra.itch.io/dordle" isExternal>
+                <Link display="inline-flex" alignItems="center" href="https://zaratustra.itch.io/dordle" isExternal>
                   Dordle
                   {' '}
                   <FaExternalLinkAlt mx="2px" />
                 </Link>
               </ListItem>
               <ListItem>
-                <Link href="https://www.quordle.com/#/" isExternal>
+                <Link display="inline-flex" alignItems="center" href="https://www.quordle.com/#/" isExternal>
                   Quordle
                   {' '}
                   <FaExternalLinkAlt mx="2px" />
                 </Link>
               </ListItem>
               <ListItem>
-                <Link href="https://octordle.com/" isExternal>
+                <Link display="inline-flex" alignItems="center" href="https://octordle.com/" isExternal>
                   Octordle
                   {' '}
                   <FaExternalLinkAlt mx="2px" />

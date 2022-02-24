@@ -1,13 +1,13 @@
 import React from 'react';
 import { Center, Flex, Text } from '@chakra-ui/react';
 
-export default function Letter({ char, colour }) {
+export default function Letter({ isGuess, char, colour }) {
   return (
     <Flex
       backgroundColor={colour}
       borderWidth="1px"
       width="1.75em"
-      height="2.75em"
+      height={isGuess ? '1.75em' : '2.75em'}
       justify="center"
     >
       <Center>
