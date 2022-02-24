@@ -100,6 +100,7 @@ export default function GameBoard() {
     if (currentDate !== date) {
       setCurrentDate(date);
       setGuessedWords([]);
+      setCurrentGuessWord('');
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
