@@ -101,6 +101,19 @@ export default function GameBoard() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    let allCorrect = true;
+    for (const word of guessedWords) {
+      if (!targetWords.includes(word)) {
+        allCorrect = false;
+      }
+    }
+    if (allCorrect) {
+      // TODO: Success modal
+      console.log('Completed it mate');
+    }
+  }, [guessedWords, targetWords]);
+
   const hStacks = [];
   for (const slice of slices) {
     // For some reason this must have a set height (even if it's 0) for the children to

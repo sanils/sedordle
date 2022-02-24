@@ -29,7 +29,8 @@ export default function Wordle({ currentGuessWord, guessedWords, targetWord }) {
   const renderCurrentGuess = !guessedWords.includes(targetWord) && guessedWords.length < 21;
   const correctGuessIndex = guessedWords.indexOf(targetWord);
 
-  // TODO: If we look at a completed game this wont scroll to the bottom of the wordle
+  // TODO: Priority:
+  //   If we look at a completed wordle this wont scroll to the correctly guessed answer
   const currentGuessRef = useCallback((node) => {
     if (renderCurrentGuess && node !== null) {
       const rect = node.getBoundingClientRect();
@@ -50,6 +51,7 @@ export default function Wordle({ currentGuessWord, guessedWords, targetWord }) {
   if (renderCurrentGuess) {
     currentGuess = (
       <Guess
+        isCurrentGuess
         refProp={currentGuessRef}
         letters={currentGuessWord.split('')}
         colours={[]}
