@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Flex, HStack } from '@chakra-ui/react';
+import { Flex, VStack, HStack } from '@chakra-ui/react';
 
 import useEventListener from '../hooks/useEventListener';
 import useWindowSize from '../hooks/useWindowSize';
@@ -62,9 +62,11 @@ export default function GameBoard() {
 
   const hStacks = [];
   for (const slice of slices) {
+    // For some reason this must have a set height (even if it's 0) for the children to
+    // match it's height. If we don't do this they (the wordle games) just push the
+    // HStack height to be their max height so the full game is on screen for some reason
     hStacks.push(
-      // TODO: This height might be useful or not
-      <HStack height="50%" spacing={3} key={slice}>
+      <HStack minHeight="15em" height="0" flexGrow={1} alignItems="stretch" spacing={3} key={slice}>
         {targetWords.slice(slice[0], slice[1]).map((targetWord, i) => (
           <Wordle
             // eslint-disable-next-line react/no-array-index-key
@@ -81,9 +83,9 @@ export default function GameBoard() {
   return (
     <Flex height="90vh" maxHeight="90vh" flexDirection="column" alignItems="center">
       {/* TODO: Get each wordle / hstack to be half of the alloted height */}
-      <Flex flexGrow={1} flexDirection="column">
+      <VStack spacing={4} flexGrow={1} flexDirection="column">
         {hStacks}
-      </Flex>
+      </VStack>
       <Keyboard
         tryAddLetterToCurrentGuessWord={tryAddLetterToCurrentGuessWord}
         trySubmitCurrentGuessWord={trySubmitCurrentGuessWord}

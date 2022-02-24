@@ -59,7 +59,7 @@ export default function Wordle({ currentGuessWord, guessedWords, targetWord }) {
 
   return (
     <VStack
-      height="15em"
+      height="100%"
       ref={wordleRef}
       overflowY="scroll"
       scrollBehavior="smooth"
