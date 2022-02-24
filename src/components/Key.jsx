@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, useColorMode } from '@chakra-ui/react';
 
+// TODO: Make all widths the same
+
 export default function Key({ clicked, char }) {
   const { colorMode } = useColorMode();
   return (

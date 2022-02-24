@@ -61,7 +61,6 @@ export default function Wordle({ currentGuessWord, guessedWords, targetWord }) {
     <VStack
       height="15em"
       ref={wordleRef}
-      className="wordle"
       overflowY="scroll"
       scrollBehavior="smooth"
       sx={{ scrollbarWidth: 'thin' }}

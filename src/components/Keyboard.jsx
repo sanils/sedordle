@@ -6,6 +6,8 @@ import { AiOutlineEnter } from 'react-icons/ai';
 
 import Key from './Key';
 
+// TODO: Bottom row not quite correctly aligned with above rows i.e. asz triangle
+
 const enterIcon = <Icon as={AiOutlineEnter} />;
 const backSpaceIcon = <Icon as={BsBackspace} />;
 

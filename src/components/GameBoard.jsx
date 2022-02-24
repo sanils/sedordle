@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Flex, HStack, VStack } from '@chakra-ui/react';
+import { Flex, HStack } from '@chakra-ui/react';
 
 import useEventListener from '../hooks/useEventListener';
 import useWindowSize from '../hooks/useWindowSize';
@@ -30,14 +30,24 @@ export default function GameBoard() {
     }
   };
 
-  const typeHandler = ({ key, keyCode }) => {
-    if (keyCode === 8) {
-      if (currentGuessWord.length > 0) {
-        setCurrentGuessWord(currentGuessWord.slice(0, -1));
-      }
-    } else if (keyCode === 13 && currentGuessWord.length === 5) {
+  const tryBackspaceCurrentGuessWord = () => {
+    if (currentGuessWord.length > 0) {
+      setCurrentGuessWord(currentGuessWord.slice(0, -1));
+    }
+  };
+
+  const trySubmitCurrentGuessWord = () => {
+    if (currentGuessWord.length === 5) {
       setGuessedWords([...guessedWords, currentGuessWord]);
       setCurrentGuessWord('');
+    }
+  };
+
+  const typeHandler = ({ key, keyCode }) => {
+    if (keyCode === 8) {
+      tryBackspaceCurrentGuessWord();
+    } else if (keyCode === 13) {
+      trySubmitCurrentGuessWord();
     } else if (keyCode >= 65 && keyCode <= 90) {
       tryAddLetterToCurrentGuessWord(key);
     }
@@ -53,7 +63,8 @@ export default function GameBoard() {
   const hStacks = [];
   for (const slice of slices) {
     hStacks.push(
-      <HStack spacing={3} key={slice}>
+      // TODO: This height might be useful or not
+      <HStack height="50%" spacing={3} key={slice}>
         {targetWords.slice(slice[0], slice[1]).map((targetWord, i) => (
           <Wordle
             // eslint-disable-next-line react/no-array-index-key
@@ -68,15 +79,16 @@ export default function GameBoard() {
   }
 
   return (
-    <Flex
-      height="90vh"
-      flexDirection="column"
-      justifyContent="space-between"
-    >
-      <VStack spacing={8}>
+    <Flex height="90vh" maxHeight="90vh" flexDirection="column" alignItems="center">
+      {/* TODO: Get each wordle / hstack to be half of the alloted height */}
+      <Flex flexGrow={1} flexDirection="column">
         {hStacks}
-      </VStack>
-      <Keyboard tryAddLetterToCurrentGuessWord={tryAddLetterToCurrentGuessWord} />
+      </Flex>
+      <Keyboard
+        tryAddLetterToCurrentGuessWord={tryAddLetterToCurrentGuessWord}
+        trySubmitCurrentGuessWord={trySubmitCurrentGuessWord}
+        tryBackspaceCurrentGuessWord={tryBackspaceCurrentGuessWord}
+      />
     </Flex>
   );
 }
