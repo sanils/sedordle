@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Button, Heading, HStack, useColorMode, Icon, Modal, ModalOverlay, ModalContent,
   ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Text, UnorderedList,
-  ListItem, Link,
+  ListItem, Link, VStack,
 } from '@chakra-ui/react';
 import {
   FaRegMoon, FaSun, FaRegQuestionCircle, FaExternalLinkAlt,
@@ -30,38 +30,40 @@ export default function TitleBar() {
           <ModalHeader>Sedordle</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>You know how to play.</Text>
-            <Text>Check out these other great games:</Text>
-            <UnorderedList>
-              <ListItem>
-                <Link display="inline-flex" alignItems="center" href="https://www.nytimes.com/games/wordle/index.html" isExternal>
-                  Wordle
-                  {' '}
-                  <FaExternalLinkAlt mx="2px" />
-                </Link>
-              </ListItem>
-              <ListItem>
-                <Link display="inline-flex" alignItems="center" href="https://zaratustra.itch.io/dordle" isExternal>
-                  Dordle
-                  {' '}
-                  <FaExternalLinkAlt mx="2px" />
-                </Link>
-              </ListItem>
-              <ListItem>
-                <Link display="inline-flex" alignItems="center" href="https://www.quordle.com/#/" isExternal>
-                  Quordle
-                  {' '}
-                  <FaExternalLinkAlt mx="2px" />
-                </Link>
-              </ListItem>
-              <ListItem>
-                <Link display="inline-flex" alignItems="center" href="https://octordle.com/" isExternal>
-                  Octordle
-                  {' '}
-                  <FaExternalLinkAlt mx="2px" />
-                </Link>
-              </ListItem>
-            </UnorderedList>
+            <VStack>
+              <Text>You know how to play.</Text>
+              <Text>Check out these other great games:</Text>
+              <UnorderedList>
+                <ListItem>
+                  <Link display="inline-flex" alignItems="center" href="https://www.nytimes.com/games/wordle/index.html" isExternal>
+                    Wordle
+                    {' '}
+                    <FaExternalLinkAlt style={{ marginLeft: '0.5em' }} />
+                  </Link>
+                </ListItem>
+                <ListItem>
+                  <Link display="inline-flex" alignItems="center" href="https://zaratustra.itch.io/dordle" isExternal>
+                    Dordle
+                    {' '}
+                    <FaExternalLinkAlt style={{ marginLeft: '0.5em' }} />
+                  </Link>
+                </ListItem>
+                <ListItem>
+                  <Link display="inline-flex" alignItems="center" href="https://www.quordle.com/#/" isExternal>
+                    Quordle
+                    {' '}
+                    <FaExternalLinkAlt style={{ marginLeft: '0.5em' }} />
+                  </Link>
+                </ListItem>
+                <ListItem>
+                  <Link display="inline-flex" alignItems="center" href="https://octordle.com/" isExternal>
+                    Octordle
+                    {' '}
+                    <FaExternalLinkAlt style={{ marginLeft: '0.5em' }} />
+                  </Link>
+                </ListItem>
+              </UnorderedList>
+            </VStack>
           </ModalBody>
         </ModalContent>
       </Modal>
