@@ -73,6 +73,8 @@ export default function GameBoard() {
   };
 
   const typeHandler = ({ key, keyCode }) => {
+    // TODO: Double tapping enter submits the word twice (I think)
+    // TODO: Pressing 2 letters quickly sometimes doesn't work
     if (keyCode === 8) {
       tryBackspaceCurrentGuessWord();
     } else if (keyCode === 13) {
