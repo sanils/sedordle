@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
-  useToast, Flex, VStack, HStack,
+  HStack, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton,
+  Text, VStack, Flex, useDisclosure, useToast,
 } from '@chakra-ui/react';
 
 import useEventListener from '../hooks/useEventListener';
@@ -31,6 +32,9 @@ export default function GameBoard() {
 
   const toast = useToast();
   const size = useWindowSize();
+
+  // Success modal controls
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   let slices;
 
@@ -102,17 +106,16 @@ export default function GameBoard() {
   }, []);
 
   useEffect(() => {
-    let allCorrect = true;
+    let allCorrect = guessedWords.length === 16;
     for (const word of guessedWords) {
       if (!targetWords.includes(word)) {
         allCorrect = false;
       }
     }
     if (allCorrect) {
-      // TODO: Success modal
-      console.log('Completed it mate');
+      onOpen();
     }
-  }, [guessedWords, targetWords]);
+  }, [guessedWords, onOpen, targetWords]);
 
   const hStacks = [];
   for (const slice of slices) {
@@ -135,15 +138,31 @@ export default function GameBoard() {
   }
 
   return (
-    <Flex height="90vh" maxHeight="90vh" flexDirection="column" alignItems="center">
-      <VStack spacing={4} flexGrow={1} flexDirection="column">
-        {hStacks}
-      </VStack>
-      <Keyboard
-        tryAddLetterToCurrentGuessWord={tryAddLetterToCurrentGuessWord}
-        trySubmitCurrentGuessWord={trySubmitCurrentGuessWord}
-        tryBackspaceCurrentGuessWord={tryBackspaceCurrentGuessWord}
-      />
-    </Flex>
+    <>
+      <Flex height="90vh" maxHeight="90vh" flexDirection="column" alignItems="center">
+        <VStack spacing={4} flexGrow={1} flexDirection="column">
+          {hStacks}
+        </VStack>
+        <Keyboard
+          tryAddLetterToCurrentGuessWord={tryAddLetterToCurrentGuessWord}
+          trySubmitCurrentGuessWord={trySubmitCurrentGuessWord}
+          tryBackspaceCurrentGuessWord={tryBackspaceCurrentGuessWord}
+        />
+      </Flex>
+
+      {/* TODO: Make this a bit better. Statistics? */}
+      <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>GG</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <VStack>
+              <Text>You did it!</Text>
+            </VStack>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
