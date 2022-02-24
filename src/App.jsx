@@ -8,7 +8,7 @@ import GameBoard from './components/GameBoard';
 export default function App() {
   return (
     <ChakraProvider theme={theme}>
-      <VStack>
+      <VStack spacing="0">
         <TitleBar />
         <GameBoard />
       </VStack>

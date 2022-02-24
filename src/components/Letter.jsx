@@ -1,7 +1,5 @@
-import {
-  Center, Flex, Text,
-} from '@chakra-ui/react';
 import React from 'react';
+import { Center, Flex, Text } from '@chakra-ui/react';
 
 export default function Letter({ char, colour }) {
   return (
@@ -13,7 +11,7 @@ export default function Letter({ char, colour }) {
       justify="center"
     >
       <Center>
-        <Text color={colour === undefined ? 'black' : 'white'}>
+        <Text color={colour !== undefined ? 'white' : undefined}>
           {char}
         </Text>
       </Center>
