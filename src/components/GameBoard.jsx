@@ -11,7 +11,7 @@ import Wordle from './Wordle';
 export default function GameBoard() {
   const [currentGuessWord, setCurrentGuessWord] = useLocalStorage('currentGuessWord', '');
   const [targetWords, setTargetWords] = useState([]);
-  const [guessedWords, setGuessedWords] = useLocalStorage('targetWords', []);
+  const [guessedWords, setGuessedWords] = useLocalStorage('guessedWords', []);
 
   let slices;
   const size = useWindowSize();
