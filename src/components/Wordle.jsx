@@ -3,6 +3,10 @@ import { VStack } from '@chakra-ui/react';
 
 import Guess from './Guess';
 
+const COLOUR_GREEN = '#538D4E';
+const COLOUR_GREY = '#787C7E';
+const COLOUR_YELLOW = '#C9B458';
+
 // TODO: Clean this spaghetti up
 
 function getColoursFromGuess(guess, target) {
@@ -10,16 +14,40 @@ function getColoursFromGuess(guess, target) {
   const targetLetters = target.split('');
   const colours = ['', '', '', '', ''];
 
-  // TODO: The yellow calc isn't quite right, e.g. still shows yellow when another
-  //   of the same letter in the same guess is green.
-  //   So basically check if the letter is green already in a different position
+  // Calulcate greens and greys first
   guessLetters.forEach((guessLetter, i) => {
     if (guessLetter === targetLetters[i]) {
-      colours[i] = '#538D4E'; // Green
-    } else if (targetLetters.includes(guessLetter)) {
-      colours[i] = '#C9B458'; // Yellow
-    } else if (guessLetter.trim() !== '') {
-      colours[i] = '#787C7E'; // Grey
+      colours[i] = COLOUR_GREEN;
+    } else {
+      colours[i] = COLOUR_GREY;
+    }
+  });
+
+  // Now calculate yellows, I hope this is correct!
+  guessLetters.forEach((guessLetter, i) => {
+    if (colours[i] !== COLOUR_GREEN && targetLetters.includes(guessLetter)) {
+      // The number of green or yellow of the same letter in our guess
+      let guessOccurrences = 0;
+      // The number of times the letter occurs in the target word
+      let targetOccurrences = 0;
+
+      for (let j = 0; j < guessLetters.length; j++) {
+        if (
+          guessLetters[j] === guessLetter
+          && (colours[j] === COLOUR_GREEN || colours[j] === COLOUR_YELLOW)
+        ) {
+          guessOccurrences += 1;
+        }
+        if (targetLetters[j] === guessLetter) {
+          targetOccurrences += 1;
+        }
+      }
+
+      // If there are more of the letter in the target word than what we currently have
+      // as green or yellow, it must at this point be marked as a yellow
+      if (targetOccurrences - guessOccurrences > 0) {
+        colours[i] = COLOUR_YELLOW;
+      }
     }
   });
 
