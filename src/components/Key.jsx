@@ -1,12 +1,19 @@
 import React from 'react';
 import { Flex, Text, useColorMode } from '@chakra-ui/react';
 
-export default function Key({ clicked, char }) {
+function getKeyColour(colorMode, used) {
+  if (used) {
+    return colorMode === 'light' ? '#787C7E' : '#3A3A3C';
+  }
+  return colorMode === 'light' ? '#D3D6DA' : '#818384';
+}
+
+export default function Key({ clicked, used, char }) {
   const { colorMode } = useColorMode();
   return (
     <Flex
       _hover={{ cursor: 'pointer' }}
-      background={colorMode === 'light' ? '#D3D6DA' : '#818384'}
+      backgroundColor={getKeyColour(colorMode, used)}
       onClick={clicked}
       width="8vw"
       height="8vw"

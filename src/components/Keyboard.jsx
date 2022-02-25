@@ -19,6 +19,7 @@ const keyboardRows = [
 
 export default function Keyboard(props) {
   const {
+    usedLetters,
     tryAddLetterToCurrentGuessWord,
     trySubmitCurrentGuessWord,
     tryBackspaceCurrentGuessWord,
@@ -39,6 +40,7 @@ export default function Keyboard(props) {
                       ? tryBackspaceCurrentGuessWord : () => tryAddLetterToCurrentGuessWord(letter)
                 }
               char={letter}
+              used={usedLetters.includes(letter)}
             />
           )) }
         </HStack>

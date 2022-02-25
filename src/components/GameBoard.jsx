@@ -29,6 +29,10 @@ export default function GameBoard() {
   const [targetWords, setTargetWords] = useState([]);
   const [guessedWords, setGuessedWords] = useLocalStorage('guessedWords', []);
   const [currentDate, setCurrentDate] = useLocalStorage('currentDate', '');
+  const [usedLetters, setUsedLetters] = useLocalStorage('usedLetters', []);
+  const [hasWonGame, setHasWonGame] = useState(false);
+  const [hasFinishedGame, setHasFinishedGame] = useState(false);
+  const [correctGuessCount, setCorrectGuessCount] = useState(0);
 
   const toast = useToast();
   const size = useWindowSize();
@@ -60,6 +64,8 @@ export default function GameBoard() {
 
   const trySubmitCurrentGuessWord = () => {
     if (currentGuessWord.length === 5 && VALID_GUESSES.includes(currentGuessWord)) {
+      // TODO: This will create duplicates
+      setUsedLetters([...usedLetters, ...currentGuessWord.split('')]);
       setGuessedWords([...guessedWords, currentGuessWord]);
       setCurrentGuessWord('');
     } else {
@@ -86,6 +92,7 @@ export default function GameBoard() {
 
   useEventListener('keydown', typeHandler);
 
+  // On first render calculate target words and erase any old game data
   useEffect(() => {
     const selected = [];
 
@@ -103,22 +110,32 @@ export default function GameBoard() {
       setCurrentDate(date);
       setGuessedWords([]);
       setCurrentGuessWord('');
+      setUsedLetters([]);
+      setHasWonGame(false);
+      setHasFinishedGame(false);
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // When new guesses come in, check if the game is over
   useEffect(() => {
-    let allCorrect = guessedWords.length === 16;
-    for (const word of guessedWords) {
-      if (!targetWords.includes(word)) {
-        allCorrect = false;
+    let correct = 0;
+    for (const word of targetWords) {
+      if (guessedWords.includes(word)) {
+        correct += 1;
       }
     }
-    if (allCorrect) {
+    setCorrectGuessCount(correct);
+    setHasWonGame(correct === 16);
+    setHasFinishedGame(correct === 16 || guessedWords.length === 21);
+  }, [guessedWords, targetWords]);
+
+  useEffect(() => {
+    if (hasFinishedGame) {
       onOpen();
     }
-  }, [guessedWords, onOpen, targetWords]);
+  }, [hasFinishedGame, onOpen]);
 
   const hStacks = [];
   for (const slice of slices) {
@@ -147,6 +164,7 @@ export default function GameBoard() {
           {hStacks}
         </VStack>
         <Keyboard
+          usedLetters={usedLetters}
           tryAddLetterToCurrentGuessWord={tryAddLetterToCurrentGuessWord}
           trySubmitCurrentGuessWord={trySubmitCurrentGuessWord}
           tryBackspaceCurrentGuessWord={tryBackspaceCurrentGuessWord}
@@ -160,8 +178,18 @@ export default function GameBoard() {
           <ModalHeader>GG</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <VStack>
-              <Text>You did it!</Text>
+            <VStack sx={{ marginBottom: '2em' }}>
+              {hasWonGame ? (
+                <Text>Congratulations!</Text>
+              ) : (
+                <Text>Bad luck!</Text>
+              )}
+              <Text>
+                You guessed
+                {' '}
+                {correctGuessCount}
+                /16 words correctly
+              </Text>
             </VStack>
           </ModalBody>
         </ModalContent>
