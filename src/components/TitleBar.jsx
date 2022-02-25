@@ -8,7 +8,8 @@ import {
   FaRegMoon, FaSun, FaRegQuestionCircle, FaExternalLinkAlt,
 } from 'react-icons/fa';
 
-export default function TitleBar() {
+// eslint-disable-next-line no-unused-vars
+export default function TitleBar({ gameMode, setGameMode, correctGuessCount }) {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -28,6 +29,10 @@ export default function TitleBar() {
           Clear localStorage
         </Button>
         )}
+        {/* <Text>
+          {correctGuessCount}
+          /16
+        </Text> */}
       </HStack>
 
       <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>

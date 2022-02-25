@@ -26,7 +26,7 @@ Math.seed = function (s) {
   };
 };
 
-export default function GameBoard() {
+export default function GameBoard({ correctGuessCount, setCorrectGuessCount }) {
   const [currentGuessWord, setCurrentGuessWord] = useLocalStorage('currentGuessWord', '');
   const [targetWords, setTargetWords] = useState([]);
   const [guessedWords, setGuessedWords] = useLocalStorage('guessedWords', []);
@@ -34,7 +34,6 @@ export default function GameBoard() {
   const [usedLetters, setUsedLetters] = useLocalStorage('usedLetters', []);
   const [hasWonGame, setHasWonGame] = useState(false);
   const [hasFinishedGame, setHasFinishedGame] = useState(false);
-  const [correctGuessCount, setCorrectGuessCount] = useState(0);
 
   const toast = useToast();
   const size = useWindowSize();
@@ -134,7 +133,7 @@ export default function GameBoard() {
     setCorrectGuessCount(correct);
     setHasWonGame(correct === 16);
     setHasFinishedGame(correct === 16 || guessedWords.length === 21);
-  }, [guessedWords, targetWords]);
+  }, [guessedWords, targetWords, setCorrectGuessCount]);
 
   useEffect(() => {
     if (hasFinishedGame) {

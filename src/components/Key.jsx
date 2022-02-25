@@ -8,13 +8,14 @@ function getKeyColour(colorMode, used) {
   return colorMode === 'light' ? '#D3D6DA' : '#818384';
 }
 
-export default function Key({ clicked, used, char }) {
+export default function Key({ onClick, used, char }) {
   const { colorMode } = useColorMode();
   return (
     <Flex
       _hover={{ cursor: 'pointer' }}
+      color={colorMode === 'light' && used ? 'white' : undefined}
       backgroundColor={getKeyColour(colorMode, used)}
-      onClick={clicked}
+      onClick={onClick}
       width="8vw"
       height="8vw"
       maxWidth="3em"

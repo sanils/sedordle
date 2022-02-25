@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import React from 'react';
 import { HStack, Icon, VStack } from '@chakra-ui/react';
 import { BsBackspace } from 'react-icons/bs';
@@ -6,7 +5,7 @@ import { AiOutlineEnter } from 'react-icons/ai';
 
 import Key from './Key';
 
-// TODO: Bottom row not quite correctly aligned with above rows i.e. asz triangle
+/* eslint-disable no-nested-ternary */
 
 const enterIcon = <Icon as={AiOutlineEnter} />;
 const backSpaceIcon = <Icon as={BsBackspace} />;
@@ -34,7 +33,7 @@ export default function Keyboard(props) {
             <Key
               // eslint-disable-next-line react/no-array-index-key
               key={`${i}-${j}`}
-              clicked={
+              onClick={
                   letter === enterIcon
                     ? trySubmitCurrentGuessWord : letter === backSpaceIcon
                       ? tryBackspaceCurrentGuessWord : () => tryAddLetterToCurrentGuessWord(letter)
