@@ -10,6 +10,9 @@ function getColoursFromGuess(guess, target) {
   const targetLetters = target.split('');
   const colours = ['', '', '', '', ''];
 
+  // TODO: The yellow calc isn't quite right, e.g. still shows yellow when another
+  //   of the same letter in the same guess is green.
+  //   So basically check if the letter is green already in a different position
   guessLetters.forEach((guessLetter, i) => {
     if (guessLetter === targetLetters[i]) {
       colours[i] = '#538D4E'; // Green
