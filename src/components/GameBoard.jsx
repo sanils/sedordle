@@ -14,6 +14,8 @@ import Wordle from './Wordle';
 import VALID_GUESSES from '../wordle/validguesses';
 import TARGET_WORDS from '../wordle/targetwords';
 
+// TODO: Practice mode?
+
 // Some magic from stackoverflow - https://stackoverflow.com/a/23304189/6396652
 // eslint-disable-next-line func-names
 Math.seed = function (s) {
@@ -63,7 +65,10 @@ export default function GameBoard() {
   };
 
   const trySubmitCurrentGuessWord = () => {
-    if (currentGuessWord.length === 5 && VALID_GUESSES.includes(currentGuessWord)) {
+    if (
+      currentGuessWord.length === 5
+      && (TARGET_WORDS.includes(currentGuessWord) || VALID_GUESSES.includes(currentGuessWord))
+    ) {
       // TODO: This will create duplicates
       setUsedLetters([...usedLetters, ...currentGuessWord.split('')]);
       setGuessedWords([...guessedWords, currentGuessWord]);
@@ -190,6 +195,13 @@ export default function GameBoard() {
                 {correctGuessCount}
                 /16 words correctly
               </Text>
+              {hasWonGame === false && (
+                <Text>
+                  The answers were:
+                  {' '}
+                  {targetWords.join(', ')}
+                </Text>
+              )}
             </VStack>
           </ModalBody>
         </ModalContent>
