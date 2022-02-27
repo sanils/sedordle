@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import {
   HStack, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton,
-  Text, VStack, Flex, useDisclosure, useToast,
+  Text, VStack, Flex, useDisclosure, useToast, Button,
 } from '@chakra-ui/react';
 
 import useEventListener from '../hooks/useEventListener';
 import useWindowSize from '../hooks/useWindowSize';
-import useLocalStorage from '../hooks/useLocalStorage';
+import useLocalStorageOriginal from '../hooks/useLocalStorage';
 
 import Keyboard from './Keyboard';
 import Wordle from './Wordle';
 
 import VALID_GUESSES from '../wordle/validguesses';
 import TARGET_WORDS from '../wordle/targetwords';
+import ShareButton from './ShareButton';
 
 // TODO: Practice mode?
 
@@ -26,7 +27,12 @@ Math.seed = function (s) {
   };
 };
 
-export default function GameBoard({ correctGuessCount, setCorrectGuessCount }) {
+export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuessCount }) {
+  let useLocalStorage = useLocalStorageOriginal;
+  if (gameMode === 'practice') {
+    useLocalStorage = (_, arg) => useState(arg);
+  }
+
   const [currentGuessWord, setCurrentGuessWord] = useLocalStorage('currentGuessWord', '');
   const [targetWords, setTargetWords] = useState([]);
   const [guessedWords, setGuessedWords] = useLocalStorage('guessedWords', []);
@@ -124,6 +130,13 @@ export default function GameBoard({ correctGuessCount, setCorrectGuessCount }) {
 
   // When new guesses come in, check if the game is over
   useEffect(() => {
+    if (targetWords.length === 0) {
+      // If we are inside this block, we are loading from the default state, which
+      // could mean that we have 21 guesses from localStorage but 0 target words, which
+      // is going to trigger the end of the game unless we stop here
+      return;
+    }
+
     let correct = 0;
     for (const word of targetWords) {
       if (guessedWords.includes(word)) {
@@ -167,6 +180,24 @@ export default function GameBoard({ correctGuessCount, setCorrectGuessCount }) {
         <VStack spacing={4} flexGrow={1} flexDirection="column">
           {hStacks}
         </VStack>
+
+        {/* DEBUG CONTROLS */}
+        {window.location.hostname === 'localhost'
+        && (
+        <HStack sx={{ marginTop: '1em' }} padding="1em" backgroundColor="purple">
+          <Button
+            onClick={() => {
+              setGuessedWords([...targetWords.slice(0, 15), 'TESTS', 'TESTS', 'TESTS', 'TESTS', 'TESTS']);
+            }}
+          >
+            Fill 15/16 20/21
+          </Button>
+          <Button onClick={() => { localStorage.clear(); window.location.reload(); }}>
+            Clear localStorage
+          </Button>
+        </HStack>
+        )}
+
         <Keyboard
           usedLetters={usedLetters}
           tryAddLetterToCurrentGuessWord={tryAddLetterToCurrentGuessWord}
@@ -201,6 +232,7 @@ export default function GameBoard({ correctGuessCount, setCorrectGuessCount }) {
                   {targetWords.join(', ')}
                 </Text>
               )}
+              <ShareButton />
             </VStack>
           </ModalBody>
         </ModalContent>

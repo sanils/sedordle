@@ -23,12 +23,6 @@ export default function TitleBar({ gameMode, setGameMode, correctGuessCount }) {
         <Button onClick={onOpen}>
           <Icon as={FaRegQuestionCircle} />
         </Button>
-        {window.location.hostname === 'localhost'
-        && (
-        <Button onClick={() => { localStorage.clear(); window.location = '/'; }}>
-          Clear localStorage
-        </Button>
-        )}
         {/* <Text>
           {correctGuessCount}
           /16
