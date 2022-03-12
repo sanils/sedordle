@@ -106,6 +106,7 @@ export default function Wordle({
       overflowY="scroll"
       scrollBehavior="smooth"
       sx={{ scrollbarWidth: 'thin' }}
+      opacity={!renderCurrentGuess ? 0.5 : 1}
     >
       {guessedWords.map((g, i) => {
         if (correctGuessIndex !== -1 && i > correctGuessIndex) {

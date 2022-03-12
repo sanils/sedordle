@@ -15,7 +15,7 @@ export default function TitleBar({ gameMode, setGameMode, correctGuessCount }) {
 
   return (
     <>
-      <HStack height="10vh">
+      <HStack height="5em" position="fixed" top="0">
         <Heading>Sedordle</Heading>
         <Button onClick={toggleColorMode}>
           {colorMode === 'light' ? <Icon as={FaRegMoon} /> : <Icon as={FaSun} />}
@@ -23,10 +23,10 @@ export default function TitleBar({ gameMode, setGameMode, correctGuessCount }) {
         <Button onClick={onOpen}>
           <Icon as={FaRegQuestionCircle} />
         </Button>
-        {/* <Text>
+        <Text>
           {correctGuessCount}
           /16
-        </Text> */}
+        </Text>
       </HStack>
 
       <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>

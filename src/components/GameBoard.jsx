@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect, useLayoutEffect, useRef, useState,
+} from 'react';
 import {
   HStack, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton,
-  Text, VStack, Flex, useDisclosure, useToast, Button,
+  Text, VStack, Flex, useDisclosure, useToast, Button, Box,
 } from '@chakra-ui/react';
 
 import useEventListener from '../hooks/useEventListener';
@@ -16,6 +18,7 @@ import TARGET_WORDS from '../wordle/targetwords';
 import ShareButton from './ShareButton';
 
 // TODO: Practice mode?
+// TODO: Lots of state going on here, maybe clean it up a bit, more components?
 
 // Some magic from stackoverflow - https://stackoverflow.com/a/23304189/6396652
 Math.seed = (s) => () => {
@@ -41,18 +44,32 @@ export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuess
   const toast = useToast();
   const size = useWindowSize();
 
+  // For calculating height css
+  const lowerBoxRef = useRef();
+  const [lowerBoxDimensions, setLowerBoxDimensions] = useState({ width: 0, height: 0 });
+
   // Success modal controls
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  let slices;
-
+  // TODO: Put in effect & state?
+  let slices = [[0, 8], [8, 16]];
   if (size.width < 800) {
+    slices = new Array(16).fill(undefined).map((_, i) => [i, i + 1]);
+  } else if (size.width < 1000) {
     slices = [[0, 2], [2, 4], [4, 6], [6, 8], [8, 10], [10, 12], [12, 14], [14, 16]];
   } else if (size.width < 1550) {
     slices = [[0, 4], [4, 8], [8, 12], [12, 16]];
-  } else {
-    slices = [[0, 8], [8, 16]];
   }
+
+  useLayoutEffect(() => {
+    // https://stackoverflow.com/a/57272554/6396652
+    if (lowerBoxRef.current) {
+      setLowerBoxDimensions({
+        width: lowerBoxRef.current.offsetWidth,
+        height: lowerBoxRef.current.offsetHeight,
+      });
+    }
+  }, []);
 
   const handleWordleStateChange = (id, correctCount) => {
     // I don't fully understand why, but using a function here fixes it not working when
@@ -180,26 +197,36 @@ export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuess
 
   return (
     <>
-      <Flex height="90vh" maxHeight="90vh" flexDirection="column" alignItems="center">
+      <Flex
+        width="100vw"
+        height={`calc(100vh - 5em - ${lowerBoxDimensions.height}px)`}
+        overflowY="auto"
+        position="fixed"
+        top="5em"
+        flexDirection="column"
+        alignItems="center"
+      >
         <VStack spacing={4} flexGrow={1} flexDirection="column">
           {hStacks}
         </VStack>
+      </Flex>
 
+      <Box ref={lowerBoxRef} position="fixed" bottom="0">
         {/* DEBUG CONTROLS */}
         {window.location.hostname === 'localhost'
         && (
-        <HStack sx={{ marginTop: '1em' }} padding="1em" backgroundColor="purple">
-          <Button
-            onClick={() => {
-              setGuessedWords([...targetWords.slice(0, 15), 'TESTS', 'TESTS', 'TESTS', 'TESTS', 'TESTS']);
-            }}
-          >
-            Fill 15/16 20/21
-          </Button>
-          <Button onClick={() => { localStorage.clear(); window.location.reload(); }}>
-            Clear localStorage
-          </Button>
-        </HStack>
+          <HStack sx={{ marginTop: '1em' }} padding="1em" backgroundColor="purple">
+            <Button
+              onClick={() => {
+                setGuessedWords([...targetWords.slice(0, 15), 'TESTS', 'TESTS', 'TESTS', 'TESTS', 'TESTS']);
+              }}
+            >
+              Fill 15/16 20/21
+            </Button>
+            <Button onClick={() => { localStorage.clear(); window.location.reload(); }}>
+              Clear localStorage
+            </Button>
+          </HStack>
         )}
 
         <Keyboard
@@ -208,7 +235,7 @@ export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuess
           trySubmitCurrentGuessWord={trySubmitCurrentGuessWord}
           tryBackspaceCurrentGuessWord={tryBackspaceCurrentGuessWord}
         />
-      </Flex>
+      </Box>
 
       {/* TODO: Make this a bit better. Statistics? */}
       <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
