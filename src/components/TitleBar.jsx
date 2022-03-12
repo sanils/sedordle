@@ -37,6 +37,7 @@ export default function TitleBar({ gameMode, setGameMode, correctGuessCount }) {
           <ModalBody>
             <VStack>
               <Text>You know how to play.</Text>
+              <Text>Sedordle resets at midnight in your timezone.</Text>
               <Text>
                 See the code for this website on
                 {' '}

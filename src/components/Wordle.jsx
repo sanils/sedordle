@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { VStack } from '@chakra-ui/react';
 
 import Guess from './Guess';
@@ -54,7 +54,9 @@ function getColoursFromGuess(guess, target) {
   return colours;
 }
 
-export default function Wordle({ currentGuessWord, guessedWords, targetWord }) {
+export default function Wordle({
+  index, currentGuessWord, guessedWords, targetWord, handleWordleStateChange,
+}) {
   const wordleRef = useRef(null);
 
   const renderCurrentGuess = !guessedWords.includes(targetWord) && guessedWords.length < 21;
@@ -89,6 +91,13 @@ export default function Wordle({ currentGuessWord, guessedWords, targetWord }) {
       />
     );
   }
+
+  useEffect(() => {
+    if (!renderCurrentGuess) {
+      handleWordleStateChange(index, correctGuessIndex);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guessedWords]);
 
   return (
     <VStack
