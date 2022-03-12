@@ -6,6 +6,8 @@ import {
   Text, VStack, Flex, useDisclosure, useToast, Button, Box,
 } from '@chakra-ui/react';
 
+import seedrandom from 'seedrandom';
+
 import useEventListener from '../hooks/useEventListener';
 import useWindowSize from '../hooks/useWindowSize';
 import useLocalStorageOriginal from '../hooks/useLocalStorage';
@@ -19,12 +21,6 @@ import ShareButton from './ShareButton';
 
 // TODO: Practice mode?
 // TODO: Lots of state going on here, maybe clean it up a bit, more components?
-
-// Some magic from stackoverflow - https://stackoverflow.com/a/23304189/6396652
-Math.seed = (s) => () => {
-  // eslint-disable-next-line no-param-reassign
-  s = Math.sin(s) * 10000; return s - Math.floor(s);
-};
 
 export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuessCount }) {
   let useLocalStorage = useLocalStorageOriginal;
@@ -129,7 +125,7 @@ export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuess
 
     // I'm pretty sure this will give everyone the same words each day
     const date = new Date().toJSON().slice(0, 10).replace(/-/g, '');
-    const seededRandom = Math.seed(parseInt(date, 10));
+    const seededRandom = seedrandom(parseInt(date, 10));
 
     for (let i = 0; i < 16; i++) {
       selected.push(TARGET_WORDS[Math.floor(seededRandom() * TARGET_WORDS.length)]);
