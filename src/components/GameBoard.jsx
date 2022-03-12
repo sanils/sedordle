@@ -199,7 +199,7 @@ export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuess
     <>
       <Flex
         width="100vw"
-        height={`calc(100vh - 5em - ${lowerBoxDimensions.height}px)`}
+        height={`calc(100% - 5em - ${lowerBoxDimensions.height}px)`}
         overflowY="auto"
         position="fixed"
         top="5em"
