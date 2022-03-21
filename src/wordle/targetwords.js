@@ -1,4 +1,6 @@
-const TARGET_WORDS = [
+import seedrandom from 'seedrandom';
+
+export const TARGET_WORDS = [
   'CIGAR',
   'REBUT',
   'SISSY',
@@ -2316,4 +2318,13 @@ const TARGET_WORDS = [
   'SHAVE',
 ];
 
-export default TARGET_WORDS;
+export function getTargetWords(date) {
+  const selected = new Set();
+  const seededRandom = seedrandom(parseInt(date, 10));
+
+  while (selected.size < 16) {
+    selected.add(TARGET_WORDS[Math.floor(seededRandom() * TARGET_WORDS.length)]);
+  }
+
+  return Array.from(selected);
+}

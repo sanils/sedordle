@@ -6,8 +6,6 @@ import {
   Text, VStack, Flex, useDisclosure, useToast, Button, Box,
 } from '@chakra-ui/react';
 
-import seedrandom from 'seedrandom';
-
 import useEventListener from '../hooks/useEventListener';
 import useWindowSize from '../hooks/useWindowSize';
 import useLocalStorageOriginal from '../hooks/useLocalStorage';
@@ -16,7 +14,7 @@ import Keyboard from './Keyboard';
 import Wordle from './Wordle';
 
 import VALID_GUESSES from '../wordle/validguesses';
-import TARGET_WORDS from '../wordle/targetwords';
+import { TARGET_WORDS, getTargetWords } from '../wordle/targetwords';
 import ShareButton from './ShareButton';
 
 // TODO: Practice mode?
@@ -121,16 +119,10 @@ export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuess
 
   // On first render calculate target words and erase any old game data
   useEffect(() => {
-    const selected = [];
-
     // I'm pretty sure this will give everyone the same words each day
     const date = new Date().toJSON().slice(0, 10).replace(/-/g, '');
-    const seededRandom = seedrandom(parseInt(date, 10));
 
-    for (let i = 0; i < 16; i++) {
-      selected.push(TARGET_WORDS[Math.floor(seededRandom() * TARGET_WORDS.length)]);
-    }
-
+    const selected = getTargetWords(date);
     setTargetWords(selected);
 
     if (currentDate !== date) {
@@ -141,7 +133,6 @@ export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuess
       setHasWonGame(false);
       setHasFinishedGame(false);
     }
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
