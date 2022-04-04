@@ -15,7 +15,6 @@ import Wordle from './Wordle';
 
 import VALID_GUESSES from '../wordle/validguesses';
 import { TARGET_WORDS, getTargetWords } from '../wordle/targetwords';
-import ShareButton from './ShareButton';
 
 // TODO: Practice mode?
 // TODO: Lots of state going on here, maybe clean it up a bit, more components?
@@ -46,13 +45,13 @@ export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuess
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // TODO: Put in effect & state?
-  let slices = [[0, 8], [8, 16]];
+  let slices = [[0, 2]];
   if (size.width < 800) {
-    slices = new Array(16).fill(undefined).map((_, i) => [i, i + 1]);
+    slices = new Array(2).fill(undefined).map((_, i) => [i, i + 1]);
   } else if (size.width < 1000) {
-    slices = [[0, 2], [2, 4], [4, 6], [6, 8], [8, 10], [10, 12], [12, 14], [14, 16]];
+    slices = [[0, 2]];
   } else if (size.width < 1550) {
-    slices = [[0, 4], [4, 8], [8, 12], [12, 16]];
+    slices = [[0, 2]];
   }
 
   useLayoutEffect(() => {
