@@ -59,7 +59,7 @@ export default function Wordle({
 }) {
   const wordleRef = useRef(null);
 
-  const renderCurrentGuess = !guessedWords.includes(targetWord) && guessedWords.length < 21;
+  const renderCurrentGuess = !guessedWords.includes(targetWord) && guessedWords.length < 10;
   const correctGuessIndex = guessedWords.indexOf(targetWord);
 
   // TODO: Priority:
@@ -131,8 +131,8 @@ export default function Wordle({
       })}
       {/* Only display current guess if we haven't guessed correctly */}
       {renderCurrentGuess && currentGuess}
-      { guessedWords.length < 21 && (
-        [...Array((21 - guessedWords.length) - (renderCurrentGuess ? 1 : 0)).keys()].map((_, i) => (
+      { guessedWords.length < 10 && (
+        [...Array((10 - guessedWords.length) - (renderCurrentGuess ? 1 : 0)).keys()].map((_, i) => (
           <Guess
           // eslint-disable-next-line react/no-array-index-key
             key={i}

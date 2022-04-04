@@ -140,7 +140,7 @@ export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuess
   useEffect(() => {
     if (targetWords.length === 0) {
       // If we are inside this block, we are loading from the default state, which
-      // could mean that we have 21 guesses from localStorage but 0 target words, which
+      // could mean that we have 10 guesses from localStorage but 0 target words, which
       // is going to trigger the end of the game unless we stop here
       return;
     }
@@ -152,8 +152,8 @@ export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuess
       }
     }
     setCorrectGuessCount(correct);
-    setHasWonGame(correct === 16);
-    setHasFinishedGame(correct === 16 || guessedWords.length === 21);
+    setHasWonGame(correct === 2);
+    setHasFinishedGame(correct === 2 || guessedWords.length === 10);
   }, [guessedWords, targetWords, setCorrectGuessCount]);
 
   useEffect(() => {
@@ -233,15 +233,12 @@ export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuess
           <ModalBody>
             <VStack sx={{ marginBottom: '2em' }}>
               {hasWonGame ? (
-                <Text>Congratulations!</Text>
+                <Text>Congratulations!!</Text>
               ) : (
                 <Text>Bad luck!</Text>
               )}
               <Text>
-                You guessed
-                {' '}
-                {correctGuessCount}
-                /16 words correctly
+                You are going to be grandparents!!
               </Text>
               {hasWonGame === false && (
                 <Text textAlign="center">
@@ -250,10 +247,6 @@ export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuess
                   {targetWords.join(', ')}
                 </Text>
               )}
-              <ShareButton
-                correctGuessCount={correctGuessCount}
-                individualScores={individualScores}
-              />
             </VStack>
           </ModalBody>
         </ModalContent>
