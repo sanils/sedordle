@@ -84,7 +84,6 @@ export default function Wordle({
   if (renderCurrentGuess) {
     currentGuess = (
       <Guess
-        isCurrentGuess
         refProp={currentGuessRef}
         letters={currentGuessWord.split('')}
         colours={[]}

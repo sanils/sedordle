@@ -4,7 +4,7 @@ import { HStack } from '@chakra-ui/react';
 import Letter from './Letter';
 
 export default function Guess({
-  isCurrentGuess, letters, colours, refProp,
+  letters, colours, refProp,
 }) {
   return (
     <HStack ref={refProp}>
@@ -14,7 +14,6 @@ export default function Guess({
           key={i}
           char={l}
           colour={colours[i]}
-          isCurrentGuess={isCurrentGuess}
         />
       ))}
     </HStack>
