@@ -45029,8 +45029,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     return /* @__PURE__ */ import_react64.default.createElement(Flex, {
       backgroundColor: colour,
       borderWidth: "1px",
-      width: "2.75em",
-      height: "2.75em",
+      width: "2em",
+      height: "2em",
       justify: "center"
     }, /* @__PURE__ */ import_react64.default.createElement(Center, null, /* @__PURE__ */ import_react64.default.createElement(Text, {
       color: colour !== void 0 ? "white" : void 0
@@ -58123,14 +58123,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     const lowerBoxRef = (0, import_react70.useRef)();
     const [lowerBoxDimensions, setLowerBoxDimensions] = (0, import_react70.useState)({ width: 0, height: 0 });
     const { isOpen, onOpen, onClose } = useDisclosure();
-    let slices = [[0, 2]];
-    if (size2.width < 800) {
-      slices = new Array(2).fill(void 0).map((_, i) => [i, i + 1]);
-    } else if (size2.width < 1e3) {
-      slices = [[0, 2]];
-    } else if (size2.width < 1550) {
-      slices = [[0, 2]];
-    }
+    const slices = [[0, 2]];
     (0, import_react70.useLayoutEffect)(() => {
       if (lowerBoxRef.current) {
         setLowerBoxDimensions({

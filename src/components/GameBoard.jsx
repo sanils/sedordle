@@ -45,14 +45,14 @@ export default function GameBoard({ gameMode, correctGuessCount, setCorrectGuess
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // TODO: Put in effect & state?
-  let slices = [[0, 2]];
-  if (size.width < 800) {
-    slices = new Array(2).fill(undefined).map((_, i) => [i, i + 1]);
-  } else if (size.width < 1000) {
-    slices = [[0, 2]];
-  } else if (size.width < 1550) {
-    slices = [[0, 2]];
-  }
+  const slices = [[0, 2]];
+  // if (size.width < 800) {
+  //   slices = new Array(2).fill(undefined).map((_, i) => [i, i + 1]);
+  // } else if (size.width < 1000) {
+  //   slices = [[0, 2]];
+  // } else if (size.width < 1550) {
+  //   slices = [[0, 2]];
+  // }
 
   useLayoutEffect(() => {
     // https://stackoverflow.com/a/57272554/6396652
