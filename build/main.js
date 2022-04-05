@@ -45038,11 +45038,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
   }
 
   // src/components/Guess.jsx
-  function Guess({
-    letters,
-    colours,
-    refProp
-  }) {
+  function Guess({ letters, colours, refProp }) {
     return /* @__PURE__ */ import_react66.default.createElement(HStack, {
       ref: refProp
     }, letters.concat(Array(5 - letters.length).fill("")).map((l, i) => /* @__PURE__ */ import_react66.default.createElement(Letter, {

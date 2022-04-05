@@ -1,15 +1,18 @@
 {
+  "homepage": "https://sanils.github.io/twordle",
   "name": "sedordle",
   "version": "0.1.0",
   "main": "index.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node ./esbuild.config.js",
     "watch": "node ./esbuild.config.js watch",
     "serve": "cd build && python3 -m http.server"
   },
-  "repository": "https://github.com/psidex/sedordle.git",
-  "author": "Simon Jenner <simjenner3@gmail.com>",
+  "repository": "https://github.com/sanils/sedordle.git",
+  "author": "Sanil Shah",
   "license": "GPL-3.0",
   "private": false,
   "dependencies": {
@@ -32,7 +35,8 @@
     "eslint-plugin-import": "2.25.3",
     "eslint-plugin-jsx-a11y": "6.5.1",
     "eslint-plugin-react": "7.28.0",
-    "eslint-plugin-react-hooks": "4.3.0"
+    "eslint-plugin-react-hooks": "4.3.0",
+    "gh-pages": "^3.2.3"
   },
   "eslintConfig": {
     "env": {

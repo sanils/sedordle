@@ -3,9 +3,7 @@ import { HStack } from '@chakra-ui/react';
 
 import Letter from './Letter';
 
-export default function Guess({
-  letters, colours, refProp,
-}) {
+export default function Guess({ letters, colours, refProp }) {
   return (
     <HStack ref={refProp}>
       {letters.concat(Array(5 - letters.length).fill('')).map((l, i) => (
