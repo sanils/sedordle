@@ -1,0 +1,18 @@
+{
+  "short_name": "Sedordle",
+  "name": "Sedordle",
+  "icons": [
+    {
+      "src": "favicon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#b0b3b8",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#FFFFFF",
+  "description": "Put your skills to the test and solve sixteen Wordles at once! You have 21 guesses to solve all sixteen words. A new Sedordle available each day to solve."
+}
