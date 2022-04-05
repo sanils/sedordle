@@ -45029,8 +45029,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_liter
     return /* @__PURE__ */ import_react64.default.createElement(Flex, {
       backgroundColor: colour,
       borderWidth: "1px",
-      width: "2em",
-      height: "2em",
+      width: "1.85em",
+      height: "1.85em",
       justify: "center"
     }, /* @__PURE__ */ import_react64.default.createElement(Center, null, /* @__PURE__ */ import_react64.default.createElement(Text, {
       color: colour !== void 0 ? "white" : void 0

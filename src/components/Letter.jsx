@@ -6,8 +6,8 @@ export default function Letter({ char, colour }) {
     <Flex
       backgroundColor={colour}
       borderWidth="1px"
-      width="2em"
-      height="2em"
+      width="1.85em"
+      height="1.85em"
       justify="center"
     >
       <Center>
